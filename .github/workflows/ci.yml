@@ -1,3 +1,8 @@
+# Optimized by ci-cost (https://github.com/mariotavarez/ci-cost)
+# Applied 1 optimization:
+# - [MEDIUM] Add concurrency group to "ci.yml"
+# Estimated savings: ~2 min/run
+#
 # Copyright (C) 2019-2022 Fabrizio Montesi <famontesi@gmail.com>
 #
 # This library is free software; you can redistribute it and/or
@@ -24,6 +29,10 @@ on:
     branches: [ master ]
   workflow_dispatch:
 
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   build:
     runs-on: ${{matrix.os}}
